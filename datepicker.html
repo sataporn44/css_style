@@ -3,86 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS basic</title>
-    <link href="http://code.jquery.com/ui/1.9.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <title>untitled</title>
+    <link href="http://code.jquery.com/ui/1.9.2/themes/flick/jquery-ui.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    
 
-    <style type="text/css">
-        /* .container{
-            border-radius: 5px;
-            padding:50px 20px;
-            margin:30px auto;
-            width:40%;
-            border:2px solid #bbb;
-            text-align: center;
-        } */
-        input{
+<style> 
+    #datepicker{
             padding:5px;
-            background-color:#eeeeee;
+            background-color:#ffffff;
+            color: #536387;
+            font-size: 14px;
+            line-height: 24px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #dde3ec;
         }
-        h2{
-            text-align: center;
-            margin-top: 100px;
-            font-weight: 600;
-        }        
-    </style>
+    #datepicker:focus{
+        border-color: #6a64f1;
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .ui-datepicker-calendar .ui-state-highlight {
+        background-color: #f0ad4e;
+        color: #000;
+        font-weight: bolder;
+    }
+    .ui-datepicker-calendar .ui-state-active {
+        border-color:#d42654;
+        border-style: dashed;
+        color: #d42654;
+
+        font-weight: bolder;
+    }
+    
+</style>
 </head>
 
 <body> 
-    <h2>How To Disable Weekends In jQuery Datepicker - Websolutionstuff</h2>
     <div class="container">
         <label>Select Date :</label>
         <input type="text" id="datepicker">
     </div>
+    <div id="format">
+        <option value="d M, y"></option>
+    </div>
+    <!-- <div>
+        <input type="date" id="dateInput">
+    <button class="addHoliday" onclick="addHoliday()" >Add Holiday</button>
+    </div> -->
 </body>
 <script type="text/javascript">
-    // $(function() {
-    //     $( "#datepicker" ).datepicker({  beforeShowDay: $.datepicker.noWeekends });        
-    // });
-    // var array = ["01-06-2023","02-06-2023","23-06-2023","24-06-2023", "19-06-2023", "29-06-2023"]
-    // $("#datepicker").datepicker({
-    //     beforeShowDay: function(date){
-    //         var string = jQuery.datepicker.formatDate('dd-mm-yy', date)
-            
-    //         return [ array.indexOf(string) == -1 ]
-    //     }
-    // });
-
+    // var tommorrow = new Date().getDate() + 1;
     var yyyy = new Date().getFullYear();
-// var tommorrow = new Date().getDate() + 1;
-var holiday = [
-	new Date(yyyy, 0, 1).getTime(), //วันปีใหม่
-	new Date(yyyy, 2, 6).getTime(), //วันมาฆบูชา
-    new Date(yyyy, 3, 6).getTime(), //วันจักรี
-    new Date(yyyy, 3, 13).getTime(), //วันสงกรานต์
-    new Date(yyyy, 3, 14).getTime(), //วันสงกรานต์
-    new Date(yyyy, 3, 15).getTime(), //วันสงกรานต์
-    new Date(yyyy, 4, 4).getTime(), //วันฉัตรมงคล
-    new Date(yyyy, 5, 3).getTime(), //วันวิสาขบูชา
-    new Date(yyyy, 6, 28).getTime(), //วันเฉลิมพระชนมพรรษา ร.10
-    new Date(yyyy, 7, 1).getTime(), //วันอาสาฬหบูชา
-    new Date(yyyy, 7, 12).getTime(), //วันแม่
-    new Date(yyyy, 9, 13).getTime(), //วันคล้ายวันสวรรคต ร.9
-    new Date(yyyy, 9, 23).getTime(), //วันปิยมหาราช
-    new Date(yyyy, 11, 5).getTime(), //วันพ่อ
-    new Date(yyyy, 11, 10).getTime(), //วันรัฐธรรมนูญ
-];
+    var holiday = [
+        new Date(yyyy, 0, 1).getTime(), //วันปีใหม่
+        new Date(yyyy, 2, 6).getTime(), //วันมาฆบูชา
+        new Date(yyyy, 3, 6).getTime(), //วันจักรี
+        new Date(yyyy, 3, 13).getTime(), //วันสงกรานต์
+        new Date(yyyy, 3, 14).getTime(), //วันสงกรานต์
+        new Date(yyyy, 3, 15).getTime(), //วันสงกรานต์
+        new Date(yyyy, 4, 4).getTime(), //วันฉัตรมงคล
+        new Date(yyyy, 5, 3).getTime(), //วันวิสาขบูชา
+        new Date(yyyy, 6, 28).getTime(), //วันเฉลิมพระชนมพรรษา ร.10
+        new Date(yyyy, 7, 1).getTime(), //วันอาสาฬหบูชา
+        new Date(yyyy, 7, 12).getTime(), //วันแม่
+        new Date(yyyy, 9, 13).getTime(), //วันคล้ายวันสวรรคต ร.9
+        new Date(yyyy, 9, 23).getTime(), //วันปิยมหาราช
+        new Date(yyyy, 11, 5).getTime(), //วันพ่อ
+        new Date(yyyy, 11, 10).getTime(), //วันรัฐธรรมนูญ
+    ];
 
 $('#datepicker').datepicker({
-	// dateFormat: "yy-mm-dd",
-	// maxDate: new Date(2018, 10, 30),
+	dateFormat: "d M yy",
+    minDate: 0,
+    // maxDate: "+4M",
+    showButtonPanel: true,
+    changeMonth: true,
+    changeYear: true,
 	beforeShowDay: function(date) {
 		var showDay = true;
 		if (date.getDay() == 0 || date.getDay() == 6) {
-			showDay = false;
+			showDay = false; // ไม่แสดงวันเสาร์และวันอาทิตย์
 		}
-		// menggunakan fungsi jquery inArray
 		if ($.inArray(date.getTime(), holiday) > -1) {
-			showDay = false;
+			showDay = false;  
 		}
 		return [showDay];
-	}
+	}  
 });
+
+var formattedHoliday = holiday.map(function(timestamp) {
+    var date = new Date(timestamp);
+    return date.toLocaleDateString('th-TH');
+    });
+    console.log(formattedHoliday);
+
+// function addHoliday() {
+//   var dateInput = document.getElementById("dateInput").value;
+//   var date = new Date(dateInput);
+//   holiday.push(date.getTime());
+
+//   var formattedHoliday = holiday.map(function(timestamp) {
+//     var date = new Date(timestamp);
+//     return date.toLocaleDateString('th-TH');
+//     });
+//     console.log(formattedHoliday);
+// }
+
 </script>
 </html>
